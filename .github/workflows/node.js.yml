@@ -43,10 +43,9 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo DATABASE_ADDRESS=${{ secrets.DATABASE_ADDRESS }} >> .env
 
       - name: Install PM2
         run: npm i pm2 -g
 
       - name: Deploy
-        run: pm2 start index.js
+        run: env $(cat .env | grep -v \"#\" | xargs) pm2 deploy ecosystem.config.js staging
