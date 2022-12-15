@@ -25,7 +25,7 @@ jobs:
           cache: "npm"
       - name: installing node modoules
         run: npm install
-      - name: installing pm2
-        run: npm i pm2
+      - name: installing pm2 globaly
+        run: npm i pm2 -g
       - name: running the application with pm2
         run: pm2 start index.js
