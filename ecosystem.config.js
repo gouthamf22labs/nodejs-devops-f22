@@ -9,9 +9,6 @@ module.exports = {
       max_restarts: 50,
       watch: false,
       max_memory_restart: "1G",
-      env: {
-        PORT: 3000,
-      },
     },
   ],
   deploy: {
