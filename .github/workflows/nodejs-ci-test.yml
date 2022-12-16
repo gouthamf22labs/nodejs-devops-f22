@@ -13,7 +13,14 @@ jobs:
     steps:
       - name: Try to fail
         run: |
-          exit 1
-          LAST_JOB_STATUS=$(gh run list --workflow workflow_history.yaml | grep -oh "completed.*" | head -1 | awk '{print $2}')
-          THIS_JOB_STATUS="${{ job.status }}"
-          echo "status changed from $LAST_JOB_STATUS to $THIS_JOB_STATUS"
+          npm test
+  build:
+    runs-on: self-hosted
+    needs: test
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Starting pm2
+        run: |
+          pm2 restart api
