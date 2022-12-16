@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Unit test
         run: |
-          npm test
+          npm run test
   build:
     runs-on: self-hosted
     needs: test
