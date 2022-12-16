@@ -12,7 +12,8 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Try to fail
-        run: exit 1
-      - name: Cancelling parallel jobs
-        if: failure()
-        uses: andymckay/cancel-action@0.2
+        run: |
+          exit 1
+          LAST_JOB_STATUS=$(gh run list --workflow workflow_history.yaml | grep -oh "completed.*" | head -1 | awk '{print $2}')
+          THIS_JOB_STATUS="${{ job.status }}"
+          echo "status changed from $LAST_JOB_STATUS to $THIS_JOB_STATUS"
