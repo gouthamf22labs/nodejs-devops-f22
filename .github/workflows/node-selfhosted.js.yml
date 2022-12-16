@@ -4,7 +4,7 @@
 name: Node.js CD - Deployment
 on:
   workflow_run:
-    workflows: ["Node.js CI"]
+    workflows: ["Node.js-CI-Test"]
     types:
       - completed
 jobs:

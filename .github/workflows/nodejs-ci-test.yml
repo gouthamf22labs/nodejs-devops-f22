@@ -1,0 +1,14 @@
+name: Node.js-CI-Test
+on:
+  workflow_run:
+    workflows: ["Node.js CI"]
+    types:
+      - completed
+jobs:
+  test:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - run: npm run test
