@@ -18,4 +18,4 @@ jobs:
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         run: |
-          pwd
+          pm2 restart api
