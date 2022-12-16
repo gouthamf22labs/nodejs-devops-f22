@@ -13,5 +13,6 @@ jobs:
     steps:
       - name: Try to fail
         run: exit 1
-      - name: Print message if we don't fail
-        run: echo Should not get here
+      - name: Cancelling parallel jobs
+        if: failure()
+        uses: andymckay/cancel-action@0.2
