@@ -10,7 +10,7 @@ jobs:
     runs-on: self-hosted
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -24,17 +24,16 @@ jobs:
     needs: compile
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - name: Unit test
-        run: |
-          npm run test
+        run: npm run test
   build:
     runs-on: self-hosted
     needs: test
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     steps:
       - name: Starting server - pm2
         run: |
