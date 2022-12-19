@@ -25,7 +25,16 @@ jobs:
         uses: slackapi/slack-github-action@v1.23.0
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          slack-message: "GitHub compile result: ${{ job.status }}\n"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to a Slack channel
+        if: failure()
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub compile result: ${{ job.status }}\n"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
   test:
@@ -37,7 +46,24 @@ jobs:
     steps:
       - name: Unit test
         run: echo success
-
+      - name: Post to a Slack channel
+        if: success()
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub test result: ${{ job.status }}\n"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to a Slack channel
+        if: failure()
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub test result: ${{ job.status }}\n"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
   build:
     runs-on: self-hosted
     needs: test
