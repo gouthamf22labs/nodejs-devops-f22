@@ -40,6 +40,7 @@ jobs:
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
+        if: failure()
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
           slack-message: "GitHub test result: ${{ job.status }}"
@@ -56,12 +57,12 @@ jobs:
       - name: Starting server - pm2
         run: |
           pm2 restart api
-      - name: Notify slack fail
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
         if: failure()
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub test result: ${{ job.status }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: C04FBTMPRT9
-          status: FAILED
-          color: danger
