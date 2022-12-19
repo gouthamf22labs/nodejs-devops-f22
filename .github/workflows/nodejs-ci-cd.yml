@@ -56,3 +56,11 @@ jobs:
       - name: Starting server - pm2
         run: |
           pm2 restart api
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub build result: ${{ job.status }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
