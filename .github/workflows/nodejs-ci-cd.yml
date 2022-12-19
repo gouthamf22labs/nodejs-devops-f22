@@ -46,7 +46,7 @@ jobs:
         node-version: [18.x]
     steps:
       - name: Unit test
-        run: echo unit test success
+        run: npm run test
       - name: Post to a Slack channel
         id: slack-test-message-success
         uses: slackapi/slack-github-action@v1.23.0
