@@ -20,23 +20,14 @@ jobs:
           cache: "npm"
       - run: npm install
       - name: Post to a Slack channel
-        if: success()
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub build success : ${{ job.status }}"
+          slack-message: "GitHub compile result: ${{ job.status }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      - name: Post to a Slack channel
-        if: failure()
-        id: slack
-        uses: slackapi/slack-github-action@v1.23.0
-        with:
-          channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "Job failed: ${{ job.status }}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
   test:
     runs-on: self-hosted
     needs: compile
@@ -46,6 +37,14 @@ jobs:
     steps:
       - name: Unit test
         run: echo hello world
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub test result: ${{ job.status }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   build:
     runs-on: self-hosted
