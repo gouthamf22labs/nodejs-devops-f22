@@ -25,7 +25,7 @@ jobs:
         if: success()
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub compile result: ${{ job.status }}"
+          slack-message: "GitHub compile result: ${{ job.status }} ✅"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Post to a Slack channel
@@ -34,7 +34,7 @@ jobs:
         if: failure()
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub compile result: ${{ job.status }}"
+          slack-message: "GitHub compile result: ${{ job.status }} ❌"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
@@ -48,21 +48,21 @@ jobs:
       - name: Unit test
         run: echo unit test success
       - name: Post to a Slack channel
-        id: slack-test-message-failure
-        uses: slackapi/slack-github-action@v1.23.0
-        if: failure()
-        with:
-          channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub test result: ${{ job.status }}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      - name: Post to a Slack channel
         id: slack-test-message-success
         uses: slackapi/slack-github-action@v1.23.0
         if: success()
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub test result: ${{ job.status }}"
+          slack-message: " GitHub test result: ${{ job.status }} ✅"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to a Slack channel
+        id: slack-test-message-failure
+        uses: slackapi/slack-github-action@v1.23.0
+        if: failure()
+        with:
+          channel-id: "C04FBTMPRT9,CAJLHAA65"
+          slack-message: "GitHub test result: ${{ job.status }} ❌"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
@@ -82,7 +82,7 @@ jobs:
         if: success()
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub build result: ${{ job.status }}"
+          slack-message: "GitHub build result: ${{ job.status }} ✅"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Post to a Slack channel
@@ -91,6 +91,6 @@ jobs:
         if: failure()
         with:
           channel-id: "C04FBTMPRT9,CAJLHAA65"
-          slack-message: "GitHub build result: ${{ job.status }}"
+          slack-message: "GitHub build result: ${{ job.status }} ❌"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
